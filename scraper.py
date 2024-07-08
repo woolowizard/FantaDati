@@ -3,19 +3,19 @@ import requests
 import pandas as pd
 import numpy as np
 
+# I need them to retrieve the teams on SofaScore
 id_squadre = {'milan': 2692, 'inter': 2697, 'juventus': 2687, 'atalanta': 2686, 'bologna': 2685, 'roma': 2702, 'lazio': 2699, 'fiorentina': 2693,
               'torino': 2696, 'napoli': 2714, 'genoa': 2713, 'monza': 2729, 'verona': 2701, 'lecce': 2689, 'udinese': 2695, 'cagliari': 2719, 'empoli': 2705,
               'frosinone': 2801, 'sassuolo': 2793, 'salernitana': 2710}
-
 squadra_url = {}
 
+# Create a dict with api link for the request (for every team) like: {'team1': 'https://www.sofascore.com/api/v1/team/2697/players'} this is the player list of Inter FC
 for squadra, id in id_squadre.items():
   url = "https://www.sofascore.com/api/v1/team/" + str(id) + "/players"
   squadra_url[squadra] = url
 
 diz_finale = {}
-
-for squadra, url in squadra_url.items():
+for squadra, url in squadra_url.items(): # n http calls where n = number of teams
   response = requests.get(url)
   tpd = {}
   if response.status_code == 200:
@@ -31,9 +31,9 @@ for squadra, url in squadra_url.items():
       print(f"Errore nella richiesta: {response.status_code}")
 
   df = pd.DataFrame()
+
 c = 0
 tot = 22
-
 for squadra in diz_finale:
   c += 1
   print(f"Importazione dati di {squadra}. ", f"Importazione completata al {c/tot}%")
