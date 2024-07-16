@@ -6,7 +6,7 @@ import numpy as np
 class FantaDati:
 
   def __init__(self):
-    self.teams_url = None
+    self.change_me = None
     
   # Metodo che prende gli id squadre dal campionato
   def get_teams_id(league):
