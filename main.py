@@ -79,8 +79,6 @@ class FantaDati:
   # Metodo che converte il dataframe in un csv pronto per l'analisi dati
   def csv(df):
     return df.to_csv('dati_fantacalcio.csv', index=False)
-
-  # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - # - #
     
   # Metodo che in un colpo solo restituisce il csv del campionato desiderato
   def get_csv(campionato):
