@@ -64,18 +64,15 @@ class FantaDati:
           team = squadra
           giocatore = player
           id = diz_finale[squadra][player]
-          #print(team, giocatore, id)
           url = "https://www.sofascore.com/api/v1/player/" + str(id) + "/unique-tournament/23/season/52760/statistics/overall"
           response = requests.get(url)
           if response.status_code == 200:
             # Ottieni i dati in formato JSON
             risp = response.json()
-            #stats = risp['statistics']
             stats = risp['statistics']
             stats = {'player': giocatore, **stats}
             temp = pd.DataFrame([stats])
             df = pd.concat([df, temp], ignore_index=True)
-            #print('Statistiche per: ', giocatore, stats)
     return df
     
   # Metodo che converte il dataframe in un csv pronto per l'analisi dati
