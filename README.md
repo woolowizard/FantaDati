@@ -2,7 +2,7 @@
 
 <h1> What? </h1>
 
-Descrivi il progetto
+Algoritmo che prende da ['inserisci siti abilitati'] le statistiche dei giocatori di serie A. Successivamente propone alcune analisi dei dati per comprendere meglio i dati ed effettuare scelte più accurate durante l'asta del fantacalcio.
 
 <h1> Why? </h1>
 
