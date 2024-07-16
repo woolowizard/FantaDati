@@ -6,8 +6,26 @@ import numpy as np
 class FantaDati:
 
   def __init__(self):
-    self.teams_url = None
-  
+
+  # Metodo che prende gli id squadre dal campionato
+  def get_teams_id(league):
+    id_squadre = {}
+    leagues_id1 = {'pl': 17, 'sa': 23}
+    leagues_id2 = {'pl': 52186, 'sa': 52760}
+    url = f'https://www.sofascore.com/api/v1/unique-tournament/{leagues_id1[league]}/season/{leagues_id2[league]}/standings/total'
+    response = requests.get(url)
+    if response.status_code == 200:
+      # Ottieni i dati in formato JSON
+      risp = response.json()
+      data = risp['standings'][0]
+      data = data['rows']
+      for i in data:
+        id_squadre[i.get('team').get('name')] = i.get('team').get('id', None)
+      return id_squadre
+    else:
+      return 'Errore nella chiamata HTTP'
+
+  # Metodo che prende gli url dei giocatori per poi utilizzarli nel metodo get_player
   def get_urls(id_squadre):
     squadra_url = {}
     for squadra, id in id_squadre.items():
@@ -15,7 +33,8 @@ class FantaDati:
       squadra_url[squadra] = url
     return squadra_url
   
-  def get_playes(squadra_url):
+  # Metodo che prende gli id dei giocatori
+  def get_players(squadra_url):
     diz_finale = {}
     for squadra, url in squadra_url.items():
       response = requests.get(url)
@@ -30,17 +49,17 @@ class FantaDati:
       else:
         print(f"Errore nella richiesta: {response.status_code}")
       
-      return diz_finale
-      
-  
+    return diz_finale
+    
+  # Metodo che prende le statistiche dei giocatori
   def get_stats(diz_finale):
     c = 0
     tot = 22
     df = pd.DataFrame()
     for squadra in diz_finale:
       c += 1
-      c = round(c/tot, 2)
-      print(f"Importazione dati di {squadra}. ", f"Importazione completata al {c/tot}%")
+      rounded = round(c/tot, 2)
+      print(f"Importazione dati di {squadra}. ", f"Importazione completata al {rounded * 100} %")
       for player in diz_finale[squadra]:
           team = squadra
           giocatore = player
@@ -57,15 +76,8 @@ class FantaDati:
             temp = pd.DataFrame([stats])
             df = pd.concat([df, temp], ignore_index=True)
             #print('Statistiche per: ', giocatore, stats)
-      return df
+    return df
     
+  # Metodo che converte il dataframe in un csv pronto per l'analisi dati
   def csv(df):
-    return df.to_csv('stats.csv', index=False)
-
-####### SCRIPT #######
-
-urls = FantaDati.get_urls(id_squadre)
-players = FantaDati.get_playes(asd)
-data = FantaDati.get_stats(players)
-data_csv = csv(data)
-
+    return df.to_csv('dati_fantacalcio.csv', index=False)
