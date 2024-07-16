@@ -11,8 +11,8 @@ class FantaDati:
   # Metodo che prende gli id squadre dal campionato
   def get_teams_id(league):
     id_squadre = {}
-    leagues_id1 = {'pl': 17, 'sa': 23}
-    leagues_id2 = {'pl': 52186, 'sa': 52760}
+    leagues_id1 = {'pl': 17, 'seriea': 23, 'laliga': 8}
+    leagues_id2 = {'pl': 52186, 'seriea': 52760, 'laliga': 52376}
     url = f'https://www.sofascore.com/api/v1/unique-tournament/{leagues_id1[league]}/season/{leagues_id2[league]}/standings/total'
     response = requests.get(url)
     if response.status_code == 200:
