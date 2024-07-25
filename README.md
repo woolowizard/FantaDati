@@ -1,7 +1,5 @@
 # FantaDati
 
-<h1> Cos'è FantaDati? </h1>
+<h1> What is that? </h1>
 
-Algoritmo che prende da sofascore.com le statistiche dei giocatori di SerieA, Premier League, La liga etc... e li converte in csv per l'analisi dati
-
-
+FantaDati is a scraping algorithm. Basically, you just need to instantiate the FantaDati.get_csv('championship_name') method to obtain as output a csv containing 107 features for each player of the specified championship.
